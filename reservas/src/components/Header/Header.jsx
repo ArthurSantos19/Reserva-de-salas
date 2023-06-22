@@ -1,9 +1,13 @@
-import { HeaderContainer } from "./styles"
+import { HeaderContainer, CustomLink } from "./styles"
+import { Link } from 'react-router-dom'
 
 export function Header() {
     return (
        <HeaderContainer>
-        <h2>Reserva de salas</h2>
+            <Link to={'/'}>
+                <CustomLink>Reserva de salas</CustomLink>
+            </Link>
+        
        </HeaderContainer>
     )
 }

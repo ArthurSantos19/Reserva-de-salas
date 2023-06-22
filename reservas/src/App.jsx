@@ -2,18 +2,16 @@ import './App.css'
 import { NovaReserva } from './components/NovaReserva'
 import { Header } from './components/Header/Header'
 import { List } from './components/List/List'
-import { useState } from 'react'
+import { salas, salasOcupadas } from './components/salas'
 
 function App() {
-  const lists = [0,1,2]
+  
 
   return (
     <>
-      <Header />
+      {/* <Header /> */}
       <NovaReserva />
-      {lists.map(list => {
-        return <List />
-      })}
+      <List />
     </>
   )
 }

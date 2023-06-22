@@ -1,14 +1,21 @@
-import { CardContainer, Circle } from "./styles"
+import { CardContainer } from "./styles"
+import { salas, salasOcupadas } from "../salas";
 
 export function List() {
     const currentDate = new Date();
     return (
-        <CardContainer>
-            <p>Sala 01</p>
-            <p>Reservado</p>
-            <p>{currentDate.toLocaleDateString()}</p>
-            <Circle />
+        <div>
+            {salasOcupadas.map( salaOcupada => {
+                return <CardContainer>
+                <p>{salaOcupada.nome}</p>
+                <p>{salaOcupada.status}</p>
+                <p>{currentDate.toLocaleDateString()}</p>
+                
 
-        </CardContainer>
+            </CardContainer>
+            })}
+            
+        </div>
+        
     )
 }

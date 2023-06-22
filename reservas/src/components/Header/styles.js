@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import styled from 'styled-components'
 
 export const HeaderContainer = styled.div`
@@ -14,3 +15,10 @@ export const HeaderContainer = styled.div`
     text-align: center;
     gap: 5rem;
 `
+
+export const CustomLink = styled(Link).attrs(() => ({
+    as: 'h2'
+  }))`
+    color: white;
+    text-decoration: none;
+  `;

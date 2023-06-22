@@ -1,12 +1,18 @@
 import { ButtonReserva } from "./styles"
-import { List } from "./List/List"
+import { Link } from 'react-router-dom'
+import Box from '@mui/material/Box';
+import TextField from '@mui/material/TextField';
 
 export function NovaReserva() {
     return(
         <div>
-            <ButtonReserva>
-                Nova Reserva
-            </ButtonReserva>
+            <Link to='/fazernovareserva'>
+                <ButtonReserva>
+                    Nova Reserva
+                </ButtonReserva>
+            </Link>
+            <h3>Salas reservadas:</h3>
+           
             
         </div>
 

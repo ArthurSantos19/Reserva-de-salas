@@ -1,9 +1,10 @@
 import styled, { keyframes } from 'styled-components';
 
 export const CardContainer = styled.div`
-    background-color: #d1f5d3;
-    border: 2px solid #4CAF50;
+    background-color: white;
+    border: 2px solid red;
     border-radius: 8px;
+    color: black;
 
     display: flex;
     flex-direction: row;
@@ -21,25 +22,24 @@ export const CardContainer = styled.div`
   }
 `
 
-const pulsate = keyframes`
-  0% {
-    background-color: red;
-    transform: scale(1);
-  }
-  50% {
-    background-color: #FF7070;
-    transform: scale(1);
-  }
-  100% {
-    background-color: red;
-    transform: scale(1);
-  }
-`;
+// const pulsate = keyframes`
+//   0% {
+//     background-color: red;
+//     transform: scale(1);
+//   }
+//   50% {
+//     background-color: #FF7070;
+//     transform: scale(1);
+//   }
+//   100% {
+//     background-color: red;
+//     transform: scale(1);
+//   }
+// `;
 
-export const Circle = styled.div`
-    width: 0.65rem;
-    height: 0.65rem;
-    border-radius: 50%;
-    animation: ${pulsate} 2s linear infinite;
-    margin-left: auto;
-`
+// export const Circle = styled.div`
+//     width: 0.65rem;
+//     height: 0.65rem;
+//     border-radius: 50%;
+//     animation: ${pulsate} 2s linear infinite;
+// `
