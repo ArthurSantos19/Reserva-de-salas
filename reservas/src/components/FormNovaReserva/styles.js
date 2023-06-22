@@ -6,7 +6,6 @@ export const ContainerForm = styled.form`
     display: flex;
     flex-direction: column;
     border-radius: 8px;
-    display: flex;
     align-items: center;
     justify-content: center;
 
@@ -26,6 +25,10 @@ export const ContainerForm = styled.form`
         margin-bottom: 1rem;
     }
 
+    label {
+        color: black;
+    }
+
 
 `
 
@@ -37,8 +40,17 @@ export const InputContainer = styled.div`
 `
 
 export const DivButton = styled.div`
-    display: columns;
+    display: row;
     margin-top: 1rem;
     margin-bottom: 0;
+    gap: 12px;
+    margin-left: auto;
 `
+
+export const ContainerButton = styled.div`
+    display: flexbox;
+    flex-direction: column;
+`
+
+
 

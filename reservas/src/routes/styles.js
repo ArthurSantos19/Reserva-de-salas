@@ -9,6 +9,10 @@ export const ContainerPrincipal = styled.div`
   height: auto;
   padding: 2rem;
 
+  p {
+    color: #00FF7F;
+  }
+
   @media (max-width: 768px) {
     padding: 1rem;
   }
@@ -72,10 +76,13 @@ export const CriarNovaSalaButton = styled.button`
   border-radius: 4px;
   cursor: pointer;
   background-color: #45a049;
+  border: 1px solid white;
+  box-shadow: 0px 2px 6px white;
 
   &:hover {
     background-color: white;
     color: #45a049;
+    box-shadow: 0px 2px 6px #45a049;
   }
 `;
 

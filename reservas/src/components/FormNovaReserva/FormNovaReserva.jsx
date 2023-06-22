@@ -1,14 +1,18 @@
-import { ContainerForm, InputContainer, DivButton } from "./styles"
-import { DateAndTimePickers } from "./DateAndTimePickers";
-import { ButtonReserva } from "../styles";
+import { ContainerForm, InputContainer, DivButton, ContainerButton } from "./styles"
+import { ptBR } from 'date-fns/locale';
+import { ButtonReserva, CancelButton } from "../styles";
 import { useState } from "react";
-import { adicionarReserva } from "./teste";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
+import { useNavigate } from "react-router-dom";
 
 
-export function FormNovaReserva() {
+export function FormNovaReserva({nomeSala} ) {
 
     const [nome, setNome] = useState("");
     const [opcaoSelecionada, setOpcaoSelecionada] = useState("")
+    const [data, setData] = useState(null)
+    const navigate = useNavigate();
 
     const handleChange = (event) => {
         const valorSelecionado = event.target.value;
@@ -19,9 +23,14 @@ export function FormNovaReserva() {
         }
       };
 
+
       const handleNomeChange = (event) => {
         setNome(event.target.value);
       };
+
+      const handleDataChange = (date) => {
+        setData(date);
+      }
 
       const handleSubmit = (event) => {
         event.preventDefault();
@@ -29,48 +38,56 @@ export function FormNovaReserva() {
         const formSubmit = {
             nome: nome,
             opcaoSelecionada: opcaoSelecionada,
+            data: data,
         }
         console.log("Dados a serem enviados:", formSubmit);
-        adicionarReserva(formSubmit);
+      }
+
+      const handleCancel = () => {
+        navigate("/fazernovareserva")
       }
 
     return (
         
         
         <ContainerForm>
-            <h4>Reserve a sala ...</h4>
+            <h4>Reserve a: {nomeSala}</h4>
             <input placeholder="Seu nome" value={nome} type="text" onChange={handleNomeChange} />
             <InputContainer>
                 <input
                     type="radio"
                     name="opcao"
-                    value="opcao1"
-                    checked={opcaoSelecionada === "opcao1"}
+                    value="Manha"
+                    checked={opcaoSelecionada === "Manha"}
                     onChange={handleChange}
                 />
                 <label>Manhã</label>
                 <input
                     type="radio"
                     name="opcao"
-                    value="opcao2"
-                    checked={opcaoSelecionada === "opcao2"}
+                    value="Tarde"
+                    checked={opcaoSelecionada === "Tarde"}
                     onChange={handleChange}
                 />
                 <label>Tarde</label>
                 <input
                     type="radio"
                     name="opcao"
-                    value="opcao3"
-                    checked={opcaoSelecionada === "opcao3"}
+                    value="Noite"
+                    checked={opcaoSelecionada === "Noite"}
                     onChange={handleChange}
                 />
                 <label>Noite</label>
             </InputContainer>
+            <label>Data da reserva</label>
+            <DatePicker  selected={data} onChange={handleDataChange} locale={ptBR} dateFormat="dd/MM/yyyy" />
+            <ContainerButton>
+                <DivButton>
+                    <ButtonReserva type="submit" onClick={handleSubmit}>Reservar</ButtonReserva>
+                    <CancelButton style={{ marginLeft: '10px' }} onClick={handleCancel}>Cancelar</CancelButton>
+                </DivButton>
+            </ContainerButton>
             
-            <DateAndTimePickers />
-            <DivButton>
-                <ButtonReserva type="submit" onClick={handleSubmit}>Reservar</ButtonReserva>
-            </DivButton>
             
         </ContainerForm>
     
