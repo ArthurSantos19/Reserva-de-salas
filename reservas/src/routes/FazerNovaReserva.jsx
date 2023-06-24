@@ -1,7 +1,8 @@
 import { ContainerSecundario, ContainerPrincipal, Card, CriarNovaSalaButton } from "./styles"
+import { v4 as uuidv4 } from "uuid";
 import { salas, salasOcupadas } from "../components/salas"
 import { FormNovaReserva } from "../components/FormNovaReserva/FormNovaReserva"
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { CriarNovaSala } from "../components/CriarNovaSala/CriarNovaSala"
 
 export function FazerNovaReserva() {
@@ -10,15 +11,26 @@ export function FazerNovaReserva() {
     const [selectedRoom, setSelectedRoom] = useState("");
     const [showContainerCriar, setShowContainerCriar] = useState(false);
     const [salasCriadas, setSalasCriadas] = useState([]);
+    const [salasReservadas, setSalasReservadas] = useState([]);
+    const [salaSelecionada, setSalaSelecionada] = useState(null);
 
-    const handleClick = (nomeSala) => {
-        setSelectedRoom(nomeSala)
-        setShowContainerForm(true)
+
+
+    const handleClick = (salaId) => {
+        const salaReservada = salasCriadas.find((sala) => sala.id === salaId);
+        if (salaReservada) {
+          setSalaSelecionada(salaReservada);
+          setSalasCriadas((salasCriadas) =>
+            salasCriadas.filter((sala) => sala.id !== salaId)
+          );
+          setShowContainerForm(true);
+        }
     };
+      
 
     const handleFormClose = () => {
         setShowContainerForm(false);
-      };
+    };
     
     const handleCriarSalaClick = () => {
         setShowContainerCriar(true);
@@ -29,9 +41,19 @@ export function FazerNovaReserva() {
     };
 
     const handleNovaSalaCriada = (formSubmitSala) => {
-        setSalasCriadas((salasCriadas) => [...salasCriadas, formSubmitSala]);
+        const salaComId = { ...formSubmitSala, id: uuidv4() };
+        setSalasCriadas((salasCriadas) => [...salasCriadas, salaComId]);
     };
+      
 
+    const handleNovaSalaReservada = (formSubmit) => {
+        const salaComId = { ...salaSelecionada, id: uuidv4() };
+        setSalasReservadas((salasReservadas) => [...salasReservadas, salaComId]);
+        setSalaSelecionada(null);
+    };
+            
+      
+    console.log("Salas criadas:", salasCriadas);
 
     return (
         <ContainerPrincipal>
@@ -45,7 +67,7 @@ export function FazerNovaReserva() {
                 <ContainerSecundario>
                 
                 {salasCriadas.map((sala, index) => (
-                    <Card key={index} onClick={() => handleClick(sala.nomeSala)}>{sala.nomeSala}</Card>
+                    <Card key={index} onClick={() => handleClick(sala.id)}>{sala.nomeSala}</Card>
                 ))}
 
 
@@ -53,7 +75,7 @@ export function FazerNovaReserva() {
                 {showContainerForm && (
                     <>
                         <div id="overlay" onClick={(handleFormClose)}></div>
-                        <FormNovaReserva onClose={handleFormClose} nomeSala={selectedRoom}/>
+                        <FormNovaReserva onNovaSalaReservada={handleNovaSalaReservada} onClose={handleFormClose} nomeSala={selectedRoom}/>
                     </>
                 )}
         </ContainerPrincipal>

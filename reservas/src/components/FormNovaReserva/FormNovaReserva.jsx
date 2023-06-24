@@ -7,7 +7,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import { useNavigate } from "react-router-dom";
 
 
-export function FormNovaReserva({nomeSala, onClose} ) {
+export function FormNovaReserva({nomeSala, onClose, onNovaSalaReservada} ) {
 
     const [nome, setNome] = useState("");
     const [opcaoSelecionada, setOpcaoSelecionada] = useState("")
@@ -22,7 +22,7 @@ export function FormNovaReserva({nomeSala, onClose} ) {
         }else {
             setOpcaoSelecionada(valorSelecionado)
         }
-      };
+    };
 
 
       const handleNomeChange = (event) => {
@@ -33,7 +33,7 @@ export function FormNovaReserva({nomeSala, onClose} ) {
         setData(date);
       }
 
-      const handleSubmit = (event) => {
+    const handleSubmit = (event) => {
         event.preventDefault();
 
         if (nome.trim() === "" || opcaoSelecionada === "" || data === null) {
@@ -47,14 +47,15 @@ export function FormNovaReserva({nomeSala, onClose} ) {
             data: data,
         }
         console.log("Dados a serem enviados:", formSubmit);
+        onNovaSalaReservada(formSubmit)
         navigate("/fazernovareserva")
         onClose();
-      }
+    }
 
-      const handleCancel = () => {
+    const handleCancel = () => {
         onClose();
         navigate("/fazernovareserva")
-      }
+    }
 
 
     return (

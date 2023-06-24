@@ -19,6 +19,11 @@ export function CriarNovaSala({onClose, onNovaSalaCriada}) {
       const handleSubmit = (event) => {
         event.preventDefault();
 
+        if (nomeSala.trim() === "" || nomeAdmin === "") {
+          alert("Por favor, preencha todos os campos.");
+          return;
+        }
+
         const formSubmitSala = {
             nomeSala: nomeSala,
             nomeAdmin: nomeAdmin,
