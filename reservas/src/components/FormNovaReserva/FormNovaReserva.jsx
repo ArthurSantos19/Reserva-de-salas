@@ -1,19 +1,20 @@
 import { ContainerForm, InputContainer, DivButton, ContainerButton } from "./styles"
 import { ptBR } from 'date-fns/locale';
 import { ButtonReserva, CancelButton } from "../styles";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useNavigate } from "react-router-dom";
 
 
-export function FormNovaReserva({nomeSala, onClose, onNovaSalaReservada} ) {
+export function FormNovaReserva({nomeSala, onClose, onNovaSalaReservada, setSalaSelecionada, salaSelecionada, setSalasCriadas} ) {
 
     const [nome, setNome] = useState("");
     const [opcaoSelecionada, setOpcaoSelecionada] = useState("")
     const [data, setData] = useState(null)
     const [modalAberto, setModalAberto] = useState(true);
     const navigate = useNavigate();
+    // const [salaSelecionada, setSalaSelecionada] = useState(null);
 
     const handleChange = (event) => {
         const valorSelecionado = event.target.value;
@@ -25,13 +26,13 @@ export function FormNovaReserva({nomeSala, onClose, onNovaSalaReservada} ) {
     };
 
 
-      const handleNomeChange = (event) => {
-        setNome(event.target.value);
-      };
+    const handleNomeChange = (event) => {
+    setNome(event.target.value);
+    };
 
-      const handleDataChange = (date) => {
-        setData(date);
-      }
+    const handleDataChange = (date) => {
+    setData(date);
+    }
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -48,20 +49,17 @@ export function FormNovaReserva({nomeSala, onClose, onNovaSalaReservada} ) {
         }
         console.log("Dados a serem enviados:", formSubmit);
         onNovaSalaReservada(formSubmit)
-        navigate("/fazernovareserva")
         onClose();
     }
 
     const handleCancel = () => {
+        setSalasCriadas((salasCriadas) => [...salasCriadas, salaSelecionada]);
+        setSalaSelecionada(null);
         onClose();
-        navigate("/fazernovareserva")
-    }
-
-
+    };
+      
     return (
-        
         <>
-
             {modalAberto && (
                 <ContainerForm>
                     <h4>Reserve a: {nomeSala}</h4>
@@ -97,7 +95,7 @@ export function FormNovaReserva({nomeSala, onClose, onNovaSalaReservada} ) {
                     <ContainerButton>
                         <DivButton>
                             <ButtonReserva type="submit" onClick={handleSubmit}>Reservar</ButtonReserva>
-                            <CancelButton style={{ marginLeft: '10px' }} onClick={handleCancel}>Cancelar</CancelButton>
+                            <CancelButton onClick={handleCancel} style={{ marginLeft: '10px' }}>Cancelar</CancelButton>
                         </DivButton>
                     </ContainerButton>
                     

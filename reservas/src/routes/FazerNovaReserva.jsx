@@ -7,14 +7,32 @@ import { CriarNovaSala } from "../components/CriarNovaSala/CriarNovaSala"
 
 export function FazerNovaReserva() {
 
-    const [showContainerForm, setShowContainerForm] = useState(false);
-    const [selectedRoom, setSelectedRoom] = useState("");
-    const [showContainerCriar, setShowContainerCriar] = useState(false);
+    const [modalContent, setModalContent] = useState(null);
     const [salasCriadas, setSalasCriadas] = useState([]);
     const [salasReservadas, setSalasReservadas] = useState([]);
     const [salaSelecionada, setSalaSelecionada] = useState(null);
 
+    useEffect(() => {
+        const salasCriadasJSON = localStorage.getItem('salasCriadas');
+        if (salasCriadasJSON) {
+            const salasCriadas = JSON.parse(salasCriadasJSON);
+            setSalasCriadas(salasCriadas);
+        }
+    }, []);
 
+    useEffect(() => {
+        const salasCriadasJSON = JSON.stringify(salasCriadas);
+        localStorage.setItem('salasCriadas', salasCriadasJSON);
+    }, [salasCriadas]);
+
+
+    const handleAbrirModal = (conteudoModal) => {
+        setModalContent(conteudoModal);
+    };
+    
+      const handleFecharModal = () => {
+        setModalContent(null);
+    };
 
     const handleClick = (salaId) => {
         const salaReservada = salasCriadas.find((sala) => sala.id === salaId);
@@ -23,21 +41,8 @@ export function FazerNovaReserva() {
           setSalasCriadas((salasCriadas) =>
             salasCriadas.filter((sala) => sala.id !== salaId)
           );
-          setShowContainerForm(true);
+          
         }
-    };
-      
-
-    const handleFormClose = () => {
-        setShowContainerForm(false);
-    };
-    
-    const handleCriarSalaClick = () => {
-        setShowContainerCriar(true);
-    };
-    
-    const handleCriarSalaClose = () => {
-    setShowContainerCriar(false);
     };
 
     const handleNovaSalaCriada = (formSubmitSala) => {
@@ -50,34 +55,44 @@ export function FazerNovaReserva() {
         const salaComId = { ...salaSelecionada, id: uuidv4() };
         setSalasReservadas((salasReservadas) => [...salasReservadas, salaComId]);
         setSalaSelecionada(null);
+        handleFecharModal();
+        setSalasCriadas((salasCriadas) => [...salasCriadas.filter((sala) => sala.id !== salaComId.id)]);
     };
             
       
-    console.log("Salas criadas:", salasCriadas);
 
     return (
         <ContainerPrincipal>
-            {showContainerCriar ? (
-                <CriarNovaSala onClose={handleCriarSalaClose} onNovaSalaCriada={handleNovaSalaCriada}/>
+            {modalContent ? (
+                modalContent
             ) : (
-                <CriarNovaSalaButton onClick={(handleCriarSalaClick)}>Criar Nova Sala</CriarNovaSalaButton>
+                <CriarNovaSalaButton onClick={() => handleAbrirModal(<CriarNovaSala onClose={handleFecharModal} onNovaSalaCriada={handleNovaSalaCriada} />)}>
+                Criar Nova Sala
+                </CriarNovaSalaButton>
             )}
             <h3>Salas disponiveis:</h3>
             <p>Clique na sala para reservar</p>
-                <ContainerSecundario>
-                
+            <ContainerSecundario>
                 {salasCriadas.map((sala, index) => (
-                    <Card key={index} onClick={() => handleClick(sala.id)}>{sala.nomeSala}</Card>
+                    <Card
+                        key={index}
+                        onClick={() => handleClick(sala.id)}
+                        >
+                        {sala.nomeSala}
+                    </Card>
                 ))}
-
-
-                </ContainerSecundario>
-                {showContainerForm && (
-                    <>
-                        <div id="overlay" onClick={(handleFormClose)}></div>
-                        <FormNovaReserva onNovaSalaReservada={handleNovaSalaReservada} onClose={handleFormClose} nomeSala={selectedRoom}/>
-                    </>
-                )}
+            </ContainerSecundario>
+                {salaSelecionada && (
+                <FormNovaReserva
+                    salaSelecionada={salaSelecionada}
+                    onNovaSalaReservada={handleNovaSalaReservada}
+                    onClose={() => setSalaSelecionada(null)}
+                    nomeSala={salaSelecionada.nomeSala}
+                    setSalaSelecionada={setSalaSelecionada}
+                    setSalasCriadas={setSalasCriadas}
+                />
+            )}
+            
         </ContainerPrincipal>
         
     )

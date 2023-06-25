@@ -65,8 +65,7 @@ export const Card = styled.button`
 `;
 
 export const CriarNovaSalaButton = styled.button`
-  align-self: flex-end;
-  position: relative;
+  
   border: none;
   color: white;
   padding: 10px 20px;

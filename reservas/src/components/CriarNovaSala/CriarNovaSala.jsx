@@ -46,7 +46,7 @@ export function CriarNovaSala({onClose, onNovaSalaCriada}) {
                 
                 <DivButton>
                     <ButtonReserva onClick={handleSubmit} type="submit" >Criar sala</ButtonReserva>
-                    <CancelButton style={{ marginLeft: '10px' }} >Cancelar</CancelButton>
+                    <CancelButton onClick={handleCancel} style={{ marginLeft: '10px' }} >Cancelar</CancelButton>
                 </DivButton>
             </ContainerButton>
         </ContainerForm>
