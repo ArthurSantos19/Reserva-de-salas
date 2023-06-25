@@ -58,9 +58,13 @@ export function FazerNovaReserva() {
         handleFecharModal();
         setSalasCriadas((salasCriadas) => [...salasCriadas.filter((sala) => sala.id !== salaComId.id)]);
     };
-            
-      
 
+    const handleDeleteSala = (formSubmit) => {
+        const salaComId = { ...salaSelecionada, id: uuidv4() };
+        setSalasCriadas((salasCriadas) => [...salasCriadas.filter((sala) => sala.id !== salaComId.id)])
+        setSalaSelecionada(null);
+    }
+            
     return (
         <ContainerPrincipal>
             {modalContent ? (
@@ -90,6 +94,7 @@ export function FazerNovaReserva() {
                     nomeSala={salaSelecionada.nomeSala}
                     setSalaSelecionada={setSalaSelecionada}
                     setSalasCriadas={setSalasCriadas}
+                    deletaSala={handleDeleteSala}
                 />
             )}
             

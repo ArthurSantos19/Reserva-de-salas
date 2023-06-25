@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { ImBin } from 'react-icons/im';
 
 export const ContainerForm = styled.form`
     position: absolute;
@@ -51,6 +52,18 @@ export const ContainerButton = styled.div`
     display: flexbox;
     flex-direction: column;
 `
+
+export const IconLixeira = styled(ImBin)`
+  color: red;
+  font-size: 24px;
+  margin-bottom: 1rem;
+  margin-left: 27rem;
+
+  &:hover {
+    color: #8B0000;
+    cursor: pointer;
+  }
+`;
 
 
 

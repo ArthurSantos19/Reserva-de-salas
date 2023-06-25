@@ -1,4 +1,4 @@
-import { ContainerForm, InputContainer, DivButton, ContainerButton } from "./styles"
+import { ContainerForm, InputContainer, DivButton, ContainerButton, IconLixeira } from "./styles"
 import { ptBR } from 'date-fns/locale';
 import { ButtonReserva, CancelButton } from "../styles";
 import { useState, useEffect } from "react";
@@ -7,14 +7,14 @@ import "react-datepicker/dist/react-datepicker.css";
 import { useNavigate } from "react-router-dom";
 
 
-export function FormNovaReserva({nomeSala, onClose, onNovaSalaReservada, setSalaSelecionada, salaSelecionada, setSalasCriadas} ) {
+export function FormNovaReserva({nomeSala, onClose, onNovaSalaReservada, deletaSala, setSalaSelecionada, salaSelecionada, setSalasCriadas} ) {
 
     const [nome, setNome] = useState("");
     const [opcaoSelecionada, setOpcaoSelecionada] = useState("")
     const [data, setData] = useState(null)
     const [modalAberto, setModalAberto] = useState(true);
     const navigate = useNavigate();
-    // const [salaSelecionada, setSalaSelecionada] = useState(null);
+    const [mensagem, setMensagem] = useState("")
 
     const handleChange = (event) => {
         const valorSelecionado = event.target.value;
@@ -52,9 +52,12 @@ export function FormNovaReserva({nomeSala, onClose, onNovaSalaReservada, setSala
         onClose();
     }
 
+    const handleDelete = () => {
+
+    }
+
     const handleCancel = () => {
         setSalasCriadas((salasCriadas) => [...salasCriadas, salaSelecionada]);
-        setSalaSelecionada(null);
         onClose();
     };
       
@@ -95,11 +98,12 @@ export function FormNovaReserva({nomeSala, onClose, onNovaSalaReservada, setSala
                     <ContainerButton>
                         <DivButton>
                             <ButtonReserva type="submit" onClick={handleSubmit}>Reservar</ButtonReserva>
+                            
                             <CancelButton onClick={handleCancel} style={{ marginLeft: '10px' }}>Cancelar</CancelButton>
+                            
                         </DivButton>
                     </ContainerButton>
-                    
-                    
+                    <IconLixeira onClick={deletaSala}></IconLixeira>
                 </ContainerForm>
             )}
         </>
