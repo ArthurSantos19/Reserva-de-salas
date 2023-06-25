@@ -5,7 +5,6 @@ export const ContainerPrincipal = styled.div`
   flex-direction: column;
   align-items: center; /* Centraliza verticalmente os elementos */
   margin-bottom: 342px;
-  width: 100%;
   height: auto;
   padding: 2rem;
 
@@ -19,10 +18,13 @@ export const ContainerPrincipal = styled.div`
   `;
 
 export const ContainerSecundario = styled.div`
-  display: flex;
-  flex-wrap: wrap; /* Permite que os cards sejam quebrados em várias linhas */
-  justify-content: center; /* Centraliza horizontalmente os elementos */
-  gap: 1rem; /* Espaçamento entre os cards */
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 1rem;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+  }
 `;
 
 const changeColorGreen = keyframes`

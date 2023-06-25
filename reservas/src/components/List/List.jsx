@@ -1,34 +1,36 @@
-import { CardContainer } from "./styles"
-import { salas, salasOcupadas } from "../salas";
-import React, { useContext } from "react";
+import { CardContainer } from "./styles";
+import axios from "axios";
+import React, { useContext, useEffect, useState } from "react";
 import { SalasReservadasContext } from "../Context/SalasReservadasContext";
 
 export function List() {
     const currentDate = new Date();
-    const {salasReservadas} = useContext(SalasReservadasContext);
+    const [salasReservadas, setSalasReservadas] = useState([]); // Alteração aqui
+
+    useEffect(() => {
+        async function fetchSalas() {
+            try {
+                const response = await axios.get("http://127.0.0.1:8000/salas/listar_reservadas/");
+                const todasSalas = response.data;
+                const salasReservadas = todasSalas.filter(sala => !sala.disponivel);
+                setSalasReservadas(salasReservadas);
+            } catch (error) {
+                console.error("Erro ao buscar as salas:", error);
+            }
+        }
+
+        fetchSalas();
+    }, []);
 
     return (
-        // <div>
-        //     {salasReservadas &&  salasReservadas.map( salaReservada => {
-        //         return <CardContainer>
-        //         <p>{salaReservada.nome}</p>
-        //         <p>{salaReservada.status}</p>
-                
-        //     </CardContainer>
-        //     })}
-            
-        // </div>
         <div>
-            {salasOcupadas.map( salaOcupada => {
-                return <CardContainer>
-                <p>{salaOcupada.nome}</p>
-                <p>{salaOcupada.status}</p>
-                <p>{currentDate.toLocaleDateString()}</p>
-                
-            </CardContainer>
-            })}
-            
+            {salasReservadas && salasReservadas.map(salaReservada => (
+                <CardContainer key={salaReservada.id}>
+                    <h5>Sala: {salaReservada.nomeSala}</h5>
+                    <h5>Criador: {salaReservada.nomeAdmin}</h5>
+                    <h5>status: Sala reservada</h5>
+                </CardContainer>
+            ))}
         </div>
-        
-    )
+    );
 }

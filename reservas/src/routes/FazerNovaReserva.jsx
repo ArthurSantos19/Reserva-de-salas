@@ -4,6 +4,7 @@ import { salas, salasOcupadas } from "../components/salas"
 import { FormNovaReserva } from "../components/FormNovaReserva/FormNovaReserva"
 import { useState, useEffect } from "react"
 import { CriarNovaSala } from "../components/CriarNovaSala/CriarNovaSala"
+import axios from "axios";
 
 export function FazerNovaReserva() {
 
@@ -13,17 +14,17 @@ export function FazerNovaReserva() {
     const [salaSelecionada, setSalaSelecionada] = useState(null);
 
     useEffect(() => {
-        const salasCriadasJSON = localStorage.getItem('salasCriadas');
-        if (salasCriadasJSON) {
-            const salasCriadas = JSON.parse(salasCriadasJSON);
-            setSalasCriadas(salasCriadas);
+        async function fetchSalasCriadas() {
+          try {
+            const response = await axios.get("http://127.0.0.1:8000/salas/");
+            setSalasCriadas(response.data);
+          } catch (error) {
+            console.error("Erro ao buscar as salas criadas:", error);
+          }
         }
-    }, []);
-
-    useEffect(() => {
-        const salasCriadasJSON = JSON.stringify(salasCriadas);
-        localStorage.setItem('salasCriadas', salasCriadasJSON);
-    }, [salasCriadas]);
+    
+        fetchSalasCriadas();
+      }, []);
 
 
     const handleAbrirModal = (conteudoModal) => {
@@ -52,7 +53,7 @@ export function FazerNovaReserva() {
       
 
     const handleNovaSalaReservada = (formSubmit) => {
-        const salaComId = { ...salaSelecionada, id: uuidv4() };
+        const salaComId = { ...salaSelecionada, id: uuidv4(), disponivel: true };
         setSalasReservadas((salasReservadas) => [...salasReservadas, salaComId]);
         setSalaSelecionada(null);
         handleFecharModal();
@@ -64,6 +65,8 @@ export function FazerNovaReserva() {
         setSalasCriadas((salasCriadas) => [...salasCriadas.filter((sala) => sala.id !== salaComId.id)])
         setSalaSelecionada(null);
     }
+
+    const salasDisponiveis = salasCriadas.filter((sala) => sala.disponivel);
             
     return (
         <ContainerPrincipal>
@@ -77,7 +80,7 @@ export function FazerNovaReserva() {
             <h3>Salas disponiveis:</h3>
             <p>Clique na sala para reservar</p>
             <ContainerSecundario>
-                {salasCriadas.map((sala, index) => (
+                {salasDisponiveis.map((sala, index) => (
                     <Card
                         key={index}
                         onClick={() => handleClick(sala.id)}

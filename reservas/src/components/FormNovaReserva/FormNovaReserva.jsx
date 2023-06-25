@@ -5,6 +5,8 @@ import { useState, useEffect } from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useNavigate } from "react-router-dom";
+import axios from "axios";
+
 
 
 export function FormNovaReserva({nomeSala, onClose, onNovaSalaReservada, deletaSala, setSalaSelecionada, salaSelecionada, setSalasCriadas} ) {
@@ -15,6 +17,18 @@ export function FormNovaReserva({nomeSala, onClose, onNovaSalaReservada, deletaS
     const [modalAberto, setModalAberto] = useState(true);
     const navigate = useNavigate();
     const [mensagem, setMensagem] = useState("")
+
+    const enviarDadosParaBackend = async (formSubmit) => {
+        try {
+          const url = `http://127.0.0.1:8000/salas/reservar/${salaSelecionada.id}/`;
+          const response = await axios.patch(url, formSubmit);
+          console.log("Resposta do servidor:", response.data);
+          onNovaSalaReservada(response.data);
+          onClose();
+        } catch (error) {
+          console.error("Erro ao enviar dados para o backend:", error);
+        }
+      };
 
     const handleChange = (event) => {
         const valorSelecionado = event.target.value;
@@ -45,15 +59,12 @@ export function FormNovaReserva({nomeSala, onClose, onNovaSalaReservada, deletaS
         const formSubmit = {
             nome: nome,
             opcaoSelecionada: opcaoSelecionada,
+            disponivel: false,
             data: data,
         }
         console.log("Dados a serem enviados:", formSubmit);
-        onNovaSalaReservada(formSubmit)
+        enviarDadosParaBackend(formSubmit)
         onClose();
-    }
-
-    const handleDelete = () => {
-
     }
 
     const handleCancel = () => {

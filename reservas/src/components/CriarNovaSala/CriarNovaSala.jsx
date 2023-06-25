@@ -2,6 +2,7 @@ import { useState } from "react"
 import { ContainerForm, ContainerButton, DivButton } from "../FormNovaReserva/styles"
 import { ButtonReserva } from "../styles"
 import { CancelButton } from "../styles"
+import axios from "axios";
 
 export function CriarNovaSala({onClose, onNovaSalaCriada}) {
 
@@ -16,7 +17,7 @@ export function CriarNovaSala({onClose, onNovaSalaCriada}) {
         setNomeAdmin(event.target.value);
       };
 
-      const handleSubmit = (event) => {
+      const handleSubmit = async (event) => {
         event.preventDefault();
 
         if (nomeSala.trim() === "" || nomeAdmin === "") {
@@ -25,10 +26,23 @@ export function CriarNovaSala({onClose, onNovaSalaCriada}) {
         }
 
         const formSubmitSala = {
-            nomeSala: nomeSala,
-            nomeAdmin: nomeAdmin,
+            nomeSala: nomeSala.toString(),
+            nomeAdmin: nomeAdmin.toString(),
+            disponivel: true,
         }
-        console.log("Dados a serem enviados para criar sala:", formSubmitSala);
+
+        try {
+          const response = await axios.post("http://127.0.0.1:8000/salas/criar/", formSubmitSala);
+          if (response.status === 200) {
+            onNovaSalaCriada(formSubmitSala);
+            onClose();
+          }
+        } catch (error) {
+          console.error(error);
+          // Trate o erro adequadamente, exiba uma mensagem de erro ao usuário, etc.
+        }
+              
+
         onNovaSalaCriada(formSubmitSala);
         onClose();
       }

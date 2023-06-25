@@ -13,9 +13,6 @@ export function NovaReserva() {
                 </ButtonReserva>
             </Link>
             <h3>Salas reservadas:</h3>
-            
-           
-            
         </div>
 
         

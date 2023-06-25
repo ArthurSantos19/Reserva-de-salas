@@ -8,9 +8,9 @@ export const CardContainer = styled.div`
 
     display: flex;
     flex-direction: row;
-    justify-content: center;
+    justify-content: space-between;
     text-align: center;
-    width:20rem;
+    width:28rem;
     height: 3rem;
     margin-bottom: 1rem;
     padding: 0.2rem;
@@ -22,24 +22,3 @@ export const CardContainer = styled.div`
   }
 `
 
-// const pulsate = keyframes`
-//   0% {
-//     background-color: red;
-//     transform: scale(1);
-//   }
-//   50% {
-//     background-color: #FF7070;
-//     transform: scale(1);
-//   }
-//   100% {
-//     background-color: red;
-//     transform: scale(1);
-//   }
-// `;
-
-// export const Circle = styled.div`
-//     width: 0.65rem;
-//     height: 0.65rem;
-//     border-radius: 50%;
-//     animation: ${pulsate} 2s linear infinite;
-// `
