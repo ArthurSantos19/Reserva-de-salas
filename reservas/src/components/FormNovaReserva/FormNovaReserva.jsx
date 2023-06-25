@@ -30,6 +30,17 @@ export function FormNovaReserva({nomeSala, onClose, onNovaSalaReservada, deletaS
         }
       };
 
+      const apagarSala = async () => {
+        try {
+          const url = `http://127.0.0.1:8000/salas/apagar/${salaSelecionada.id}/`;
+          await axios.delete(url);
+          setSalasCriadas((salasCriadas) => salasCriadas.filter(sala => sala.id !== salaSelecionada.id));
+          onClose();
+        } catch (error) {
+          console.error("Erro ao apagar sala:", error);
+        }
+      };
+
     const handleChange = (event) => {
         const valorSelecionado = event.target.value;
         if(opcaoSelecionada === valorSelecionado) {
@@ -114,7 +125,7 @@ export function FormNovaReserva({nomeSala, onClose, onNovaSalaReservada, deletaS
                             
                         </DivButton>
                     </ContainerButton>
-                    <IconLixeira onClick={deletaSala}></IconLixeira>
+                    <IconLixeira onClick={apagarSala}></IconLixeira>
                 </ContainerForm>
             )}
         </>
