@@ -1,4 +1,5 @@
 import styled, { keyframes } from 'styled-components';
+import { MdNotificationImportant } from 'react-icons/md';
 
 export const CardContainer = styled.div`
     background-color: white;
@@ -10,10 +11,10 @@ export const CardContainer = styled.div`
     flex-direction: row;
     justify-content: space-between;
     text-align: center;
-    width:28rem;
+    width:30rem;
     height: 3rem;
     margin-bottom: 1rem;
-    padding: 0.2rem;
+    padding: 0.3rem;
     gap: 0.75rem;
     
 
@@ -21,4 +22,5 @@ export const CardContainer = styled.div`
         width: 100%;
   }
 `
+
 

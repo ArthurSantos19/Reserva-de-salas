@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import styled from 'styled-components'
+import { MdNotificationImportant } from 'react-icons/md';
 
 export const HeaderContainer = styled.div`
     position: fixed;
@@ -10,6 +11,7 @@ export const HeaderContainer = styled.div`
     font-size: large;
 
     display: flex;
+    flex-direction: row;
     justify-content: center;
     align-items: center;
     text-align: center;
@@ -22,3 +24,15 @@ export const CustomLink = styled(Link).attrs(() => ({
     color: white;
     text-decoration: none;
   `;
+
+export const IconNotifica = styled(MdNotificationImportant)`
+  color: white;
+  font-size: 24px;
+  margin-bottom: 1rem;
+  margin-left: 27rem;
+
+  &:hover {
+    color: #F0E68C;
+    cursor: pointer;
+  }
+`

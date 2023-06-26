@@ -1,4 +1,4 @@
-import { HeaderContainer, CustomLink } from "./styles"
+import { HeaderContainer, CustomLink, IconNotifica } from "./styles"
 import { Link } from 'react-router-dom'
 
 export function Header() {
@@ -6,8 +6,11 @@ export function Header() {
        <HeaderContainer>
             <Link to={'/'}>
                 <CustomLink>Reserva de salas</CustomLink>
+                
             </Link>
-        
+            <h3>Checkin</h3>
+            <h3>Notificações</h3>
+            <IconNotifica />
        </HeaderContainer>
     )
 }
