@@ -49,5 +49,6 @@
 
 ![voltar](https://github.com/ArthurSantos19/Reserva-de-salas/assets/54809333/b8748941-7c2d-4b87-8009-8383a68b2a46)
 
-
+## Informação solicitada no email
+- Na empresa onde eu trabalho em alguns casos específicos damos manutenções em alguns produtos em Django mas foi minha primeira experiência partindo de um projeto do zero
 
