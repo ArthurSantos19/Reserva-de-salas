@@ -1,4 +1,4 @@
-import { ContainerForm, InputContainer, DivButton, ContainerButton, IconLixeira } from "./styles"
+import { ContainerForm, InputContainer, Input, InputRadio, DivButton, StyledDatePicker, ContainerButton, IconLixeira } from "./styles"
 import { ptBR } from 'date-fns/locale';
 import { ButtonReserva, CancelButton } from "../styles";
 import { useState, useEffect } from "react";
@@ -90,9 +90,9 @@ export function FormNovaReserva({nomeSala, onClose, onNovaSalaReservada, deletaS
             {modalAberto && (
                 <ContainerForm>
                     <h4>Reserve a: {nomeSala}</h4>
-                    <input placeholder="Seu nome" value={nome} type="text" onChange={handleNomeChange} />
+                    <Input placeholder="Seu nome" value={nome} type="text" onChange={handleNomeChange} />
                     <InputContainer>
-                        <input
+                        <InputRadio
                             type="radio"
                             name="opcao"
                             value="Manha"
@@ -100,7 +100,7 @@ export function FormNovaReserva({nomeSala, onClose, onNovaSalaReservada, deletaS
                             onChange={handleChange}
                         />
                         <label>Manhã</label>
-                        <input
+                        <InputRadio
                             type="radio"
                             name="opcao"
                             value="Tarde"
@@ -108,7 +108,7 @@ export function FormNovaReserva({nomeSala, onClose, onNovaSalaReservada, deletaS
                             onChange={handleChange}
                         />
                         <label>Tarde</label>
-                        <input
+                        <InputRadio
                             type="radio"
                             name="opcao"
                             value="Noite"
@@ -118,7 +118,7 @@ export function FormNovaReserva({nomeSala, onClose, onNovaSalaReservada, deletaS
                         <label>Noite</label>
                     </InputContainer>
                     <label>Data da reserva</label>
-                    <DatePicker  selected={data} onChange={handleDataChange} locale={ptBR} dateFormat="dd/MM/yyyy" />
+                    <StyledDatePicker  style={{ width: '50%' }} selected={data} onChange={handleDataChange} locale={ptBR} dateFormat="dd/MM/yyyy" />
                     <ContainerButton>
                         <DivButton>
                             <ButtonReserva type="submit" onClick={handleSubmit}>Reservar</ButtonReserva>

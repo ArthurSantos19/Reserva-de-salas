@@ -13,6 +13,7 @@ export const ButtonReserva = styled.button`
     cursor: pointer;
     border: 1px solid white;
     box-shadow: 0px 2px 6px white;
+    width: 50%;
 
     &:hover {
         background-color: #45a049;
@@ -31,6 +32,7 @@ export const CancelButton = styled.button`
     font-size: 16px;
     border-radius: 4px;
     cursor: pointer;
+    width: 45%;
 
     &:hover {
         background-color: #800000;
