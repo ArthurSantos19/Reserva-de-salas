@@ -3,12 +3,14 @@ import { ImBin } from 'react-icons/im';
 
 export const ContainerForm = styled.form`
     position: absolute;
-    width: 40%;
+    width: 40vh;
+    height: 40vh;
     display: flex;
     flex-direction: column;
     border-radius: 8px;
     align-items: center;
     justify-content: center;
+    box-sizing: border-box;
 
     background: white;
     border: 2px solid #4CAF50;
@@ -57,7 +59,6 @@ export const IconLixeira = styled(ImBin)`
   color: red;
   font-size: 24px;
   margin-bottom: 1rem;
-  margin-left: 27rem;
 
   &:hover {
     color: #8B0000;

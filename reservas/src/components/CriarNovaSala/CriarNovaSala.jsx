@@ -8,6 +8,7 @@ export function CriarNovaSala({onClose, onNovaSalaCriada}) {
 
     const [nomeSala, setNomeSala] = useState("")
     const [nomeAdmin, setNomeAdmin] = useState("")
+    const [data, setData] = useState(null)
 
     const handleNomeSala = (event) => {
         setNomeSala(event.target.value);
@@ -28,8 +29,11 @@ export function CriarNovaSala({onClose, onNovaSalaCriada}) {
         const formSubmitSala = {
             nomeSala: nomeSala.toString(),
             nomeAdmin: nomeAdmin.toString(),
+            data: data,
             disponivel: true,
         }
+
+        console.log("Dados a serem enviado", formSubmitSala)
 
         try {
           const response = await axios.post("http://127.0.0.1:8000/salas/criar/", formSubmitSala);

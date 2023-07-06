@@ -49,6 +49,7 @@ def reservar_sala(request, sala_id):
         return Response(response_data, status=404)
 
     sala.disponivel = False
+    sala.data = request.data.get('data')
     sala.save()
 
     serializer = SalaSerializer(sala)

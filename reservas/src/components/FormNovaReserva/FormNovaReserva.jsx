@@ -6,6 +6,7 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import { format } from 'date-fns';
 
 
 
@@ -17,6 +18,7 @@ export function FormNovaReserva({nomeSala, onClose, onNovaSalaReservada, deletaS
     const [modalAberto, setModalAberto] = useState(true);
     const navigate = useNavigate();
     const [mensagem, setMensagem] = useState("")
+    const formattedDate = data ? format(data, 'yyyy-MM-dd', { locale: ptBR }) : null;
 
     const enviarDadosParaBackend = async (formSubmit) => {
         try {
@@ -71,7 +73,7 @@ export function FormNovaReserva({nomeSala, onClose, onNovaSalaReservada, deletaS
             nome: nome,
             opcaoSelecionada: opcaoSelecionada,
             disponivel: false,
-            data: data,
+            data: formattedDate,
         }
         console.log("Dados a serem enviados:", formSubmit);
         enviarDadosParaBackend(formSubmit)

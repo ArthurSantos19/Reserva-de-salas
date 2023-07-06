@@ -27,8 +27,8 @@ export function List() {
             {salasReservadas && salasReservadas.map(salaReservada => (
                 <CardContainer key={salaReservada.id}>
                     <h5>Sala: {salaReservada.nomeSala}</h5>
-                    <h5>Criador: {salaReservada.nomeAdmin}</h5>
-                    <h5>status: Sala reservada</h5>
+                    <h5>{salaReservada.data}</h5>
+                    <h5 style={{color: 'red'}}>Sala reservada</h5>
                 </CardContainer>
             ))}
         </div>

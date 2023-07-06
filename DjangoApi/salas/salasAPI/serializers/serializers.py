@@ -4,7 +4,7 @@ from salasAPI.models import Sala
 class SalaSerializer(serializers.ModelSerializer):
     class Meta:
         model = Sala
-        fields = ['id', 'nomeSala', 'nomeAdmin', 'disponivel']
+        fields = ['id', 'nomeSala', 'nomeAdmin', 'data', 'disponivel']
 
     def create(self, validated_data):
         sala = Sala.objects.create(**validated_data)
